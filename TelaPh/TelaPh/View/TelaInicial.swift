@@ -9,19 +9,17 @@ import SwiftUI
 
 struct TelaInicial: View {
     var body: some View {
-        NavigationStack{
-            ZStack{
+        NavigationStack {
+            ZStack {
                 Color.background.ignoresSafeArea()
-                VStack{
-                    
-                    
-                    VStack (alignment: .leading, spacing: 4){
+                VStack {
+                    VStack (alignment: .leading, spacing: 4) {
                         Text("Soma")
                             .font(.title)
                             .frame(width: .infinity, alignment: .leading)
                             .padding(.leading, 20)
-                        HStack(){
-                            ZStack(){
+                        HStack() {
+                            ZStack() {
                                 Rectangle()
                                     .foregroundStyle(.square.opacity(0.45))
                                     .frame(width: 149, height: 51)
@@ -32,9 +30,8 @@ struct TelaInicial: View {
                                     .foregroundColor(.black)
                             }
                             .frame(width: .infinity, alignment: .leading)
-                            .padding(.leading, 20)
                             
-                            Spacer().frame(width: 110)
+                            Spacer()
                             Image(systemName: "eraser.line.dashed.fill")
                                 .font(.largeTitle)
                                 .foregroundStyle(.square)
@@ -44,6 +41,7 @@ struct TelaInicial: View {
                                 .foregroundStyle(.square)
                             
                         }
+                        .padding(.horizontal)
                         
                         ZStack{
                             Color.square.ignoresSafeArea().opacity(0.45)
@@ -53,7 +51,7 @@ struct TelaInicial: View {
                                 .foregroundColor(.square.opacity(1))
                         }
                         .cornerRadius(15)
-                        .frame(width: 359, height: 382)
+                        .frame(maxWidth: .infinity, maxHeight: 382)
                         .padding(20)
                     }
                     Button(action:{
@@ -82,8 +80,6 @@ struct TelaInicial: View {
                     }
                 }
             }
-            
-            
             .toolbar{
                 ToolbarItemGroup(placement: .bottomBar) {
                     Button(action: {}){
@@ -119,7 +115,6 @@ struct TelaInicial: View {
                     .toolbarBackground(.visible, for: .bottomBar)
                 }
             }
-            
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)

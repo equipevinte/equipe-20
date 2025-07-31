@@ -11,7 +11,7 @@ import SwiftUI
 struct TelaPhApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Root()
         }
     }
 }
