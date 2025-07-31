@@ -8,8 +8,34 @@
 import SwiftUI
 
 struct Loja: View {
+    @ObservedObject var userViewModel = UserViewModel.shared
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack(alignment: .top) {
+            Color.background.ignoresSafeArea(.all)
+            
+            VStack {
+                Text("Skins de dado")
+                    .fontWeight(.semibold)
+                    .font(.title)
+                
+                HStack {
+                    IndicadorMoedas()
+                    
+                    Spacer()
+                    
+                }
+                .padding(.horizontal)
+                
+                Button(action: {
+                    userViewModel.testandoViewModel()
+                }, label: {
+                    PacoteCard()
+                })
+                
+                
+                
+            }
+        }
     }
 }
 

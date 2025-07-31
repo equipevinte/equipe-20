@@ -155,7 +155,8 @@ struct dados: View {
             }
         }
     }
-    private struct Modificator: View{
+
+    private struct Modificator: View {
         @State var contador: Int = 0
         var body: some View {
             ZStack{
@@ -186,6 +187,7 @@ struct dados: View {
             .padding(.bottom, 100)
         }
     }
+
     private struct imageDice: View{
         var body: some View {
             Image(systemName: "dice.fill")

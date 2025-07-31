@@ -10,9 +10,22 @@
 		22E7BCC72E2695F0009328CB /* TelaPh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TelaPh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		367933562E3C305D001ED731 /* Exceptions for "TelaPh" folder in "TelaPh" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 22E7BCC62E2695F0009328CB /* TelaPh */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		22E7BCC92E2695F0009328CB /* TelaPh */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				367933562E3C305D001ED731 /* Exceptions for "TelaPh" folder in "TelaPh" target */,
+			);
 			path = TelaPh;
 			sourceTree = "<group>";
 		};
