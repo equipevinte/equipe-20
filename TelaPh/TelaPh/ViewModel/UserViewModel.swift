@@ -35,7 +35,5 @@ class UserViewModel: ObservableObject {
         }
     }
     
-    func testandoViewModel() {
-        print("ola equipe 20!!!!!!!!")
-    }
+    
 }

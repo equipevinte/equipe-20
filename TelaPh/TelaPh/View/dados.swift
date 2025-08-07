@@ -8,173 +8,130 @@
 import SwiftUI
 
 struct dados: View {
+    @EnvironmentObject var viewModel: SelectDadoViewModel
+    private let columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
-        NavigationView{
-           
-            ZStack{
+        NavigationView {
+            ZStack {
                 Color.bege.ignoresSafeArea()
-                VStack{
-                 
-                    ZStack{
-                        Color.bege.ignoresSafeArea(.all )
-                            .frame(width: 500, height: 500)
-                            .padding(.bottom, 100)
-                        ZStack{
-                            VStack{
-                                HStack{
-                                    VStack{
-                                        Image("DadoD4")
-                                        Text("D4")
-                                            .font(.title2)
-                                            .bold()
-                                        RectangleCount()
-                                        
-                                    }
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
-                                    VStack{
-                                        Image("DadoD6")
-                                        Text("D6")
-                                            .font(.title2)
-                                            .bold()
-                                        RectangleCount()
-                                    }
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20));
-                                    VStack{
-                                        Image("DadoD8")
-                                        Text("D8")
-                                            .font(.title2)
-                                            .bold()
-                                        RectangleCount()
-                                    }
-                                }
+                
+                VStack(spacing: 30) {
+                    
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(SelectDadoViewModel.TipoDado.allCases) { dado in
+                            VStack {//dado
+                                Image("d4")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 80, height: 80)
                                 
-                                .padding(.bottom, 50)
-                                HStack{
-                                    VStack{
-                                        Image("DadoD10")
-                                        Text("D10")
-                                            .font(.title2)
-                                            .bold()
-                                        RectangleCount()
-                                    }
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20))
-                                    VStack{
-                                        Image("DadoD12")
-                                            .resizable()
-                                            .frame(width: 100, height: 100)
-                                        Text("D12")
-                                            .font(.title2)
-                                            .bold()
-                                        RectangleCount()
-                                    }
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20)) ;
-                                    VStack{
-                                        Image("DadoD20")
-                                        Text("D20")
-                                            .font(.title2)
-                                            .bold()
-                                        ZStack{
-                                            RectangleCount()
-                                            
-                                        }
-                                    }
-                                }
+                                Text(dado.id.uppercased())
+                                    .font(.title2)
+                                    .bold()
+                                
+                                RectangleCount(
+                                    count: viewModel.count(for: dado),
+                                    onDecrement: { viewModel.removeDado(dado) },
+                                    onIncrement: { viewModel.addDado(dado) }
+                                )
                             }
-                            
                         }
-                        
                     }
+                    .padding()
                     
                     Text("Modificador")
                         .font(.largeTitle)
                         .bold()
+                    
                     Modificator()
-                        
-                        .toolbar{
-                            ToolbarItem(placement: .navigationBarLeading){
-                                Button(action: {
-                                  
-                                }){
-                                    
-                            Text("Escolha Seus Dados")
-                                .font(.title)
-                                .foregroundStyle(.black)
-                                .bold()
-                                .padding()
-                                .frame(alignment: .center)
-                                    
-                                }
-                            }
-                        }
+                    
+                    Spacer()
                 }
-               
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("Escolha Seus Dados")
+                            .font(.title)
+                            .foregroundStyle(.black)
+                            .bold()
+                    }
+                }
             }
-            
         }
     }
-}
-    private struct RectangleCount: View{
-        @State var contador: Int = 0
+    
+    private struct RectangleCount: View {
+        let count: Int
+        let onDecrement: () -> Void
+        let onIncrement: () -> Void
+        
         var body: some View {
-            ZStack{
+            ZStack {
                 Rectangle()
                     .foregroundStyle(.marrom)
                     .frame(width: 100, height: 50)
                     .cornerRadius(10)
-                HStack{
+                HStack {
                     Button(action: {
-                        if contador > 0{
-                            contador -= 1
-                        }
-                    }){
+                        onDecrement()
+                    }) {
                         Image(systemName: "minus")
                             .foregroundStyle(.black)
                     }
-                    Text("\(contador)")
+                    
+                    Text("\(count)")
                     
                     Button(action: {
-                        contador += 1
-                    }){
+                        onIncrement()
+                    }) {
                         Image(systemName: "plus")
                             .foregroundStyle(.black)
                     }
                 }
+                .padding(.horizontal)
                 .font(.title2)
             }
         }
     }
-    private struct Modificator: View{
+    
+    private struct Modificator: View {
         @State var contador: Int = 0
         var body: some View {
-            ZStack{
+            ZStack {
                 Rectangle()
                     .foregroundStyle(.marrom)
                     .frame(width: 150, height: 50)
                     .cornerRadius(10)
-                HStack{
+                HStack {
                     Button(action: {
-                        if contador > 0{
+                        if contador > 0 {
                             contador -= 1
                         }
-                    }){
+                    }) {
                         Image(systemName: "minus")
                             .foregroundStyle(.black)
                     }
+                    
                     Text("\(contador)")
                     
                     Button(action: {
                         contador += 1
-                    }){
+                    }) {
                         Image(systemName: "plus")
                             .foregroundStyle(.black)
                     }
                 }
                 .font(.largeTitle)
             }
-            .padding(.bottom, 100)
         }
     }
-    
+}
+
 #Preview {
     dados()
+        .environmentObject(SelectDadoViewModel())
 }

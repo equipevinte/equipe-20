@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct Root: View {
+
+    @StateObject private var selectDados = SelectDadoViewModel()
+    
     @State private var selectedTab = 0
-var body: some View {
-        TabView(selection:$selectedTab){
-            //não consegui modificar as cores
+
+    var body: some View {
+        TabView(selection: $selectedTab) {
             
-              
+            // The views inside no longer need parameters
             dados()
                 .tabItem {
                     Label("Dados", systemImage: "dice.fill")
@@ -32,8 +35,7 @@ var body: some View {
                 }
                 .tag(2)
         }
-        
-        
+        .environmentObject(selectDados)
     }
 }
 
