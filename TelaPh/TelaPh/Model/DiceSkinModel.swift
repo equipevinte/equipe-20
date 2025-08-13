@@ -7,8 +7,8 @@
 
 import Foundation
 
-class DiceSkin {
-    var id: UUID
+struct DiceSkin: Identifiable{
+    var id: UUID = UUID()
     var preco: Int
     var skinImages: [String]
     var nome: String
@@ -23,4 +23,10 @@ class DiceSkin {
         self.equipado = equipado
         self.id = UUID()
     }
+    
+   
 }
+var DadoSkinsGlobais = [DiceSkin(preco: 200, skinImages: ["PacoteMarinho"], nome: "Pacote Marinho", comprado: false, equipado: false),
+    DiceSkin(preco: 200, skinImages: ["PacoteMarinho"], nome: "Pacote Marinho", comprado: false, equipado: false),
+    DiceSkin(preco: 200, skinImages: ["PacoteMarinho"], nome: "Pacote Marinho", comprado: false, equipado: false),
+    DiceSkin(preco: 200, skinImages: ["PacoteMarinho"], nome: "Pacote Marinho", comprado: false, equipado: false)]

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Rolagem: Identifiable {
+struct Rolagem: Identifiable{
     let id = UUID()
     let results: [Int] 
     let timestamp = Date()
