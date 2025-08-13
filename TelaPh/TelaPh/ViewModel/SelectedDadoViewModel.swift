@@ -17,7 +17,7 @@ class SelectDadoViewModel: ObservableObject {
             }
         }
         
-   
+        
         var sides: Int {
             switch self {
             case .d4: return 4
@@ -31,7 +31,8 @@ class SelectDadoViewModel: ObservableObject {
     }
     
     @Published var selectedDice: [TipoDado: Int] = [:]
-    
+    @Published var rolarResultado: [Int] = []
+    @Published var historico: [Rolagem] = []
     
     var allDiceAsList: [TipoDado] {
         selectedDice.flatMap { (dieType, count) in
@@ -42,7 +43,7 @@ class SelectDadoViewModel: ObservableObject {
     func addDado(_ dado: TipoDado) {
         selectedDice[dado, default: 0] += 1
     }
-
+    
     func removeDado(_ dado: TipoDado) {
         guard let currentCount = selectedDice[dado], currentCount > 0 else {
             return
@@ -58,4 +59,24 @@ class SelectDadoViewModel: ObservableObject {
     func count(for dado: TipoDado) -> Int {
         return selectedDice[dado] ?? 0
     }
+    
+    func rolarDado(dados: [SelectDadoViewModel.TipoDado]) {
+        rolarResultado = dados.map { die in
+            Int.random(in: 1...die.sides)
+        }.sorted()
+        
+        guard !rolarResultado.isEmpty else { return }
+        
+        let novaRolagem = Rolagem(results: rolarResultado)
+        
+        historico.insert(novaRolagem, at: 0)
+        
+    }
+    
+    func clearCurrentRoll(){
+        selectedDice.removeAll()
+        rolarResultado.removeAll()
+        historico.removeAll()
+    }
+    
 }

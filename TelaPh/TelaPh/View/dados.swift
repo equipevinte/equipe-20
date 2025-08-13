@@ -21,7 +21,7 @@ struct dados: View {
                 Color.bege.ignoresSafeArea()
                 
                 VStack(spacing: 30) {
-                    
+                   
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(SelectDadoViewModel.TipoDado.allCases) { dado in
                             VStack {//dado
@@ -50,15 +50,33 @@ struct dados: View {
                     
                     Modificator()
                     
-                    Spacer()
-                }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Escolha Seus Dados")
-                            .font(.title)
-                            .foregroundStyle(.black)
-                            .bold()
+                    
+                    if viewModel.selectedDice.isEmpty {
+                        
+                    }else{
+                        Spacer()
+                        
+
+                            
+                            Button(action: {
+                                
+                            }){
+                                NavigationLink(destination: TelaInicial()){
+                                    
+                                    Text("Confirmar")
+                                    .font(.title)
+                                    .foregroundStyle(.bege)
+                                    .padding(15)
+                                    .cornerRadius(8)
+                                    .background{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .foregroundStyle(.marromEscuro)
+                                        
+                                    }
+                            }
+                        }
                     }
+                    Spacer()
                 }
             }
         }

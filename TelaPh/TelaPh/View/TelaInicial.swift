@@ -7,15 +7,29 @@
 
 import SwiftUI
 
+struct PrimaryButton: View{
+    let title: String
+    let action: () -> Void
+    
+    var body: some View{
+        Button(action: action)
+        {
+            Text(title)
+                .padding()
+                .frame(width: 212, height: 67)
+                .background(.marromEscuro)
+                .foregroundStyle(Color.bege)
+                .font(.title)
+                .cornerRadius(8)
+        }
+    }
+}
 struct TelaInicial: View {
     
     @EnvironmentObject var selectDados: SelectDadoViewModel
-    @StateObject private var rolarVM = RolagemViewModel()
     @State private var showSheet: Bool = false
-    @StateObject private var historicoVM = RolagemViewModel()
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 Color.bege.ignoresSafeArea()
                 VStack {
@@ -42,7 +56,7 @@ struct TelaInicial: View {
                                     .foregroundStyle(.marromEscuro.opacity(0.45))
                                     .frame(width: 149, height: 51)
                                     .cornerRadius(10)
-                                Text("\(rolarVM.historico.first?.total ?? 0)")
+                                Text("\(selectDados.historico.first?.total ?? 0)")
                                     .font(.title)
                                     .fontWeight(.bold)
                             }
@@ -51,9 +65,7 @@ struct TelaInicial: View {
                             Spacer()
                             
                             Button(action: {
-                                selectDados.selectedDice.removeAll()
-                                rolarVM.rolarResultado.removeAll()
-                                rolarVM.historico.removeAll()
+                                selectDados.clearCurrentRoll()
                             }) {
                                 Image(systemName: "eraser.line.dashed.fill")
                                     .font(.largeTitle)
@@ -83,12 +95,21 @@ struct TelaInicial: View {
                                             .padding()
                                         
                                         Spacer()
-                                        
+                                        Button(action:{
+                                            selectDados.historico.removeAll()
+                                        }){
+                                           Image(systemName: "trash.fill")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30 , height: 30)
+                                                .foregroundStyle(.black)
+                                                .padding()
+                                        }
                                         Button(action: {
                                             showSheet = false
                                             //botão extra pra sair da sheet
                                         }){
-                                            
+                                          
                                             Image(systemName: "xmark.circle.fill")
                                                 .resizable()
                                                 .scaledToFit()
@@ -98,12 +119,12 @@ struct TelaInicial: View {
                                             
                                         }
                                     }
-                                    
-                                        Image(systemName: "DadoPensando")
+ 
+                                        Image("DadoPensando")
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: 200, height: 200)
- 
+                                            .frame(width: 250, height: 250)
+                                    Spacer()
                                 }
                             }//VstackSheet
                         }//zstackSheet
@@ -113,7 +134,7 @@ struct TelaInicial: View {
                     
                     ZStack {
                         Color.marromEscuro.opacity(0.45)
-                        if rolarVM.rolarResultado.isEmpty {
+                        if selectDados.rolarResultado.isEmpty {
                             Text("Por favor,\n escolha um dado\npara rolar.")
                                 .font(.title)
                                 .fontWeight(.bold)
@@ -121,7 +142,7 @@ struct TelaInicial: View {
                                 .foregroundColor(.marromEscuro)
                         } else {
                             ScrollView {
-                                Text(rolarVM.rolarResultado.map(String.init).joined(separator: " , "))
+                                Text(selectDados.rolarResultado.map(String.init).joined(separator: " , "))
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
                                     .multilineTextAlignment(.center)
@@ -134,26 +155,16 @@ struct TelaInicial: View {
                     .padding(20)
                     
                     
-                    Button(action: {
-                        rolarVM.rolarDado(dados: selectDados.allDiceAsList)
-                        
-                    }) {
-                        Text("Rolar Dados")
-                            .padding()
-                            .frame(width: 212, height: 67)
-                            .background(.marromEscuro)
-                            .foregroundStyle(Color.bege)
-                            .font(.title)
-                            .cornerRadius(8)
-                        
-                    }//button
+                    PrimaryButton(title: "Rolar Dados", action: {
+                        selectDados.rolarDado(dados: selectDados.allDiceAsList)
+                    })
                     
                     .disabled(selectDados.selectedDice.isEmpty)
                     .opacity(selectDados.selectedDice.isEmpty ? 1.0 : 1.0)
                     .padding(.bottom, 30)
                 }
             }
-            }//zstack
+          
         .navigationBarBackButtonHidden(true)
     }
 }
@@ -162,3 +173,4 @@ struct TelaInicial: View {
     TelaInicial()
         .environmentObject(SelectDadoViewModel())
 }
+
