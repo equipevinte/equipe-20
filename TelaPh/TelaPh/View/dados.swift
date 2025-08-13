@@ -23,9 +23,9 @@ struct dados: View {
                 VStack(spacing: 30) {
                    
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(SelectDadoViewModel.TipoDado.allCases) { dado in
+                        ForEach(SelectDadoViewModel.TipoDado.allCases, id: \.self) { dado in
                             VStack {//dado
-                                Image("d4")
+                                Image(dado.rawValue)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 80, height: 80)
