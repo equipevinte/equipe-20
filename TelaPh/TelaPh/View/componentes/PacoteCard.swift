@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct PacoteCard: View {
+    @State private var dadosGlobais = skinsGlobais()
     let colums = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
     ]
-    //n sei pq ta dando erro
+
     
     var body: some View {
         

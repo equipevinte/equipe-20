@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUICore
 
-struct DiceSkin: Identifiable{
+struct DiceSkin: Identifiable, Hashable{
     var id: UUID = UUID()
     var preco: Int
     var skinImages: [String]
@@ -35,7 +35,7 @@ struct DiceSkin: Identifiable{
                      nome: "Pacote Marinho",
                      comprado: false,
                      equipado: false,
-                     skinsIndividual: [String(format:"d4", "d6", "d8", "d10", "d12")]),
+                     skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]),
                         
             
             DiceSkin(preco: 200,
@@ -43,13 +43,13 @@ struct DiceSkin: Identifiable{
                      nome: "Pacote Magma",
                      comprado: false,
                      equipado: false,
-                     skinsIndividual:[String(format: "d4", "d6", "d8", "d10", "d12")] ),
+                     skinsIndividual:[] ),
             DiceSkin(preco: 200,
                      skinImages: [String("PacoteOtimista")],
                      nome: "Pacote Otimista",
                      comprado: false,
                      equipado: false,
-                     skinsIndividual:[String(format: "d4", "d6", "d8", "d10", "d12")] ),
+                     skinsIndividual:[] ),
         ]
     }
 
