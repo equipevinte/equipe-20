@@ -8,41 +8,26 @@
 import SwiftUI
 
 struct PacoteCard: View {
-    var SkinDado: DiceSkin
+    let colums = [
+        GridItem(.flexible(), spacing: 16),
+        GridItem(.flexible(), spacing: 16)
+    ]
+    //n sei pq ta dando erro
+    
     var body: some View {
         
-        VStack {
-            Text("Pacote marinho")
-                .font(.custom("Silkscreen-Bold", size: 12))
-                .foregroundStyle(.azulMarinho)
-            
-            Image("PacoteMarinho")
-            
-            HStack {
-                Image("moeda")
-                
-                Text("200")
-                    .font(.custom("Silkscreen-Bold", size: 25))
-                    .foregroundStyle(.bege)
-            }
-            
-            
-        }//vstack pacoteMarinho
-        .padding(.horizontal, 20)
-        .background {
-            Color.marromEscuro
+        ScrollView{//Scroll para qaundo existir mais dados
+            LazyVGrid(columns: colums, spacing: 16){ //cria as colunas
+                    PacoteCard2() //chama a view com os pacotes
+                }
+
         }
-        .cornerRadius(20)
-        
-        //teste da lazy da loja
-        
-        
-        
     }
 }
+    
 
 #Preview {
-    PacoteCard(SkinDado: DiceSkin(preco: 200, skinImages: ["PacoteMarinho"], nome: "Pacote Marinho", comprado: false, equipado: false))
+    PacoteCard()
 
  
 }

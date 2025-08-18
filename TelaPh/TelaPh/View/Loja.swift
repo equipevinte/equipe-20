@@ -11,7 +11,7 @@ import SwiftUI
 
 
 struct Loja: View {
-    @State var listaSkinsdado: [DiceSkin] = DadoSkinsGlobais
+    @State var listaSkinsdado: skinsGlobais = skinsGlobais()
     var body: some View {
         ZStack(alignment: .top) {
                     Color.bege.ignoresSafeArea(.all)
@@ -31,13 +31,8 @@ struct Loja: View {
                         }
                         .padding(.horizontal)
                        
-                        ScrollView{
-                            LazyVGrid(columns: [.init(), .init()]){
-                                ForEach(listaSkinsdado){ skin in
-                                    PacoteCard(SkinDado: skin)
-                                }
-                            }
-                        }
+                        PacoteCard()
+                        
                         
             }
         }
