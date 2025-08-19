@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Configuracoes: View {
+    @Environment(\.dismiss) var dismiss
     @State private var isDarkMode: Bool = false
     @State private var isSound: Bool = true
     @State private var AnimationDice: Bool = true
@@ -48,11 +49,14 @@ struct Configuracoes: View {
                         
                     }){
                         HStack{
-                            NavigationLink(destination: TelaInicial()){
+                            Button(action: {
+                                dismiss()
+                            }, label: {
                                 Image(systemName: "arrow.left")
                                     .font(.largeTitle)
                                     .foregroundStyle(.black)
-                            }
+                            })
+                            
                             Text("Configuração")
                                 .font(.title)
                                 .foregroundStyle(.black)

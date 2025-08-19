@@ -13,6 +13,8 @@ import SwiftUI
 struct Loja: View {
     @State var listaSkinsdado: skinsGlobais = skinsGlobais()
     @State private var buttonCompra: Bool = true
+    @State var showBuySheet: Bool = false
+    @State var selectedSkin: DiceSkin?
     var body: some View {
         ZStack(alignment: .top) {
                     Color.bege.ignoresSafeArea(.all)
@@ -32,9 +34,22 @@ struct Loja: View {
                         }
                         .padding(.horizontal)
                             
-                        PacoteCard()
-                        
-                        
+                        PacoteCard(selectedSkin: $selectedSkin, showBuySheet: $showBuySheet)
+            }
+        }
+        .overlay {
+            if showBuySheet {
+                ZStack {
+                    Color.black.opacity(0.2).ignoresSafeArea(.all)
+                        .onTapGesture {
+                            showBuySheet = false
+                        }
+                    
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 300, height: 300)
+                    Text(selectedSkin?.nome ?? "erro")
+                        .foregroundStyle(.white)
+                }
             }
         }
     }

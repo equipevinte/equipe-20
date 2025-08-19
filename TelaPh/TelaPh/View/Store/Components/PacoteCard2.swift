@@ -8,15 +8,17 @@
 import SwiftUI
 //View para amenizar a tela Pacotecard e resolver um erro
 struct PacoteCard2: View {
+    @Binding var selectedSkin: DiceSkin?
+    @Binding var showBuySheet: Bool
     @State private var dadosGlobais = skinsGlobais()
-    @State private var showSheet: Bool = false
     
     var body: some View {
             //foreach para passar por todos os dados passados no DiceSkinModel
             ForEach(dadosGlobais.DadoSkinsGlobais) { skin in
                 ForEach(skin.skinImages, id: \.self) { image in
                     Button(action:{
-                        showSheet.toggle()
+                        selectedSkin = skin
+                        showBuySheet = true
                     }){
                         VStack{
                             Text(skin.nome)//nome do pacote com a cor respectiva
@@ -46,16 +48,11 @@ struct PacoteCard2: View {
                         .background(Color.marromEscuro)
                         .cornerRadius(10)
                     }//button
-                    .sheet(isPresented: $showSheet){
-                        PacoteMarinhoCompra()
-                    }
+//                    .sheet(isPresented: $showSheet){
+//                        PacoteMarinhoCompra()
+//                    }
                 }//foreach2
             }//foreach1
         
     }
 }
-
-#Preview {
-    PacoteCard2()
-}
-

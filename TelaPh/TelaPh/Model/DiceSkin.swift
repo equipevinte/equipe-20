@@ -71,8 +71,6 @@ struct DiceSkin: Identifiable, Hashable{
         ]
     }
 
-
-
     func colorParaSkinName(_ nome: String) -> Color{
         switch nome{
         case "Pacote Marinho":

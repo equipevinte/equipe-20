@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct dados: View {
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: SelectDadoViewModel
     private let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -16,21 +17,20 @@ struct dados: View {
     ]
     
     var body: some View {
-        NavigationView {
             ZStack {
                 Color.bege.ignoresSafeArea()
                 
                 VStack(spacing: 30) {
-                   
+                    
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(SelectDadoViewModel.TipoDado.allCases, id: \.self) { dado in
+                        ForEach(TipoDado.allCases, id: \.self) { dado in
                             VStack {//dado
-                                Image(dado.rawValue)
+                                Image(dado.ImageName)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 80, height: 80)
                                 
-                                Text(dado.id.uppercased())
+                                Text(dado.rawValue.uppercased())
                                     .font(.title2)
                                     .bold()
                                 
@@ -51,35 +51,28 @@ struct dados: View {
                     Modificator()
                     
                     
-                    if viewModel.selectedDice.isEmpty {
-                        
-                    }else{
                         Spacer()
-                        
-
-                            
-                            Button(action: {
-                                
-                            }){
-                                NavigationLink(destination: TelaInicial()){
+                        Button(action: {
+                            dismiss()
+                            viewModel.hasRolled = false
+                        }){
+                            Text("Confirmar")
+                                .font(.title)
+                                .foregroundStyle(.bege)
+                                .padding(15)
+                                .cornerRadius(8)
+                                .background{
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundStyle(.marromEscuro)
                                     
-                                    Text("Confirmar")
-                                    .font(.title)
-                                    .foregroundStyle(.bege)
-                                    .padding(15)
-                                    .cornerRadius(8)
-                                    .background{
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .foregroundStyle(.marromEscuro)
-                                        
-                                    }
-                            }
-                        }
+                                }
+                                .disabled(viewModel.selectedDice.isEmpty)
+                                .opacity(viewModel.selectedDice.isEmpty ? 0 : 1)
+                        
                     }
                     Spacer()
                 }
             }
-        }
     }
     
     private struct RectangleCount: View {

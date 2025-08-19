@@ -11,8 +11,6 @@ struct Rolagem: Identifiable{
     let id = UUID()
     let results: [Int] 
     let timestamp = Date()
-
-    
     
     var total: Int {
         results.reduce(0, +)

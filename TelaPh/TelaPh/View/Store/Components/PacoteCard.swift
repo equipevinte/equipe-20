@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PacoteCard: View {
+    @Binding var selectedSkin: DiceSkin?
+    @Binding var showBuySheet: Bool
     @State private var dadosGlobais = skinsGlobais()
     let colums = [
         GridItem(.flexible(), spacing: 16),
@@ -19,16 +21,9 @@ struct PacoteCard: View {
         
         ScrollView{//Scroll para qaundo existir mais dados
             LazyVGrid(columns: colums, spacing: 16){ //cria as colunas
-                    PacoteCard2() //chama a view com os pacotes
+                PacoteCard2(selectedSkin: $selectedSkin, showBuySheet: $showBuySheet) //chama a view com os pacotes
                 }
 
         }
     }
-}
-    
-
-#Preview {
-    PacoteCard()
-
- 
 }
