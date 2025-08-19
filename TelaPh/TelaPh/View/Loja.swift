@@ -12,6 +12,7 @@ import SwiftUI
 
 struct Loja: View {
     @State var listaSkinsdado: skinsGlobais = skinsGlobais()
+    @State private var buttonCompra: Bool = true
     var body: some View {
         ZStack(alignment: .top) {
                     Color.bege.ignoresSafeArea(.all)
@@ -30,7 +31,7 @@ struct Loja: View {
                             
                         }
                         .padding(.horizontal)
-                       
+                            
                         PacoteCard()
                         
                         
