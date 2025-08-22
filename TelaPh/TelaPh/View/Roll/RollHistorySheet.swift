@@ -9,8 +9,11 @@ import SwiftUI
 
 struct RollHistorySheet: View {
     
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var selectDados: SelectDadoViewModel
+
+    
+    @Environment(\.dismiss) var dismiss
+    
 
     var body: some View {
         ZStack {
