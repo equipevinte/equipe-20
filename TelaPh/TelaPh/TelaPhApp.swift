@@ -11,11 +11,7 @@ import SwiftUI
 struct TelaPhApp: App {
     var body: some Scene {
         WindowGroup {
-<<<<<<< HEAD
-            ContentView()
-=======
             Root()
->>>>>>> roll-view-model
         }
     }
 }
