@@ -89,7 +89,7 @@ struct TelaInicial: View {
                                         .frame(width: 83, height: 46)
                                         .foregroundStyle(.bege)
                                         .overlay {
-                                           Text("10")
+                                           Text("100")
                                         }
                                 }
                             }
