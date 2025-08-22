@@ -26,7 +26,7 @@ struct Loja: View {
                         
                         HStack {
                             indicadorDeMoedas()
-                                .padding(.leading, 25)
+                                .padding(.leading, 5)
                                 .padding(.bottom, 10)
                             
                             Spacer()
@@ -45,10 +45,7 @@ struct Loja: View {
                             showBuySheet = false
                         }
                     
-                    RoundedRectangle(cornerRadius: 20)
-                        .frame(width: 300, height: 300)
-                    Text(selectedSkin?.nome ?? "erro")
-                        .foregroundStyle(.white)
+                    SkinsDetails(selectedSkin: $selectedSkin, skin: DiceSkin?(selectedSkin!) ?? DiceSkin(preco: 200, skinImages: ["PacoteMarinho"], nome: "Pacote Marinho", comprado: false, equipado: false, skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]))
                 }
             }
         }

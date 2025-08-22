@@ -20,10 +20,12 @@ struct PacoteCard: View {
     var body: some View {
         
         ScrollView{//Scroll para qaundo existir mais dados
-            LazyVGrid(columns: colums, spacing: 16){ //cria as colunas
-                PacoteCard2(selectedSkin: $selectedSkin, showBuySheet: $showBuySheet) //chama a view com os pacotes
-                }
+                   LazyVGrid(columns: colums, spacing: 16){ //cria as colunas
+                       PacoteCard2(selectedSkin: $selectedSkin, showBuySheet: $showBuySheet)//chama a view com os pacotes
+                       }
 
-        }
+               }
     }
 }
+    
+

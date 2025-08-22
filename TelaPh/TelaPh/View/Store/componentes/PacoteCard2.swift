@@ -7,6 +7,8 @@
 
 import SwiftUI
 //View para amenizar a tela Pacotecard e resolver um erro
+import SwiftUI
+//View para amenizar a tela Pacotecard e resolver um erro
 struct PacoteCard2: View {
     @Binding var selectedSkin: DiceSkin?
     @Binding var showBuySheet: Bool
@@ -45,8 +47,11 @@ struct PacoteCard2: View {
                             .padding(.bottom, 5)
                         }//vstack
                         .padding(.horizontal, 10)
+                        .frame(width: 152, height: 143)
                         .background(Color.marromEscuro)
                         .cornerRadius(10)
+
+
                     }//button
 //                    .sheet(isPresented: $showSheet){
 //                        PacoteMarinhoCompra()
