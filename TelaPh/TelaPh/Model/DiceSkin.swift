@@ -71,6 +71,30 @@ struct DiceSkin: Identifiable, Hashable{
         ]
     }
 
+class StoreSkins: ObservableObject{
+    @Published var skins: [DiceSkin] = [
+        DiceSkin(preco: 0,
+                 skinImages: [String("PacoteDefault")],
+                 nome: "Pacote Padrão",
+                 comprado: true,
+                 equipado: true,
+                 skinsIndividual:["d4", "d6", "d8", "d10", "d12", "d20"] ),
+        DiceSkin(preco: 200,
+                 skinImages: [String("PacoteOtimista")],
+                 nome: "Pacote Otimista",
+                 comprado: false,
+                 equipado: false,
+                 skinsIndividual:["d4Otimista", "d6Otimista", "d8Otimista", "d10Otimista", "d12Otimista", "d20Otimista"] ),
+        DiceSkin(preco: 200,
+                 skinImages: [String("PacoteFlorest")],
+                 nome: "Pacote Florest",
+                 comprado: false,
+                 equipado: false,
+                 skinsIndividual:["d4Florest", "d6Florest", "d8Florest", "d10Florest", "d12Florest", "d20Florest"] ),
+
+        
+    ]
+}
     func colorParaSkinName(_ nome: String) -> Color{
         switch nome{
         case "Pacote Marinho":
@@ -85,6 +109,8 @@ struct DiceSkin: Identifiable, Hashable{
             return .roxogalatico
         case "Pacote Florest":
             return .verdeFlorest
+        case "Pacote Padrão":
+            return .white
         default:
             return .black
         }

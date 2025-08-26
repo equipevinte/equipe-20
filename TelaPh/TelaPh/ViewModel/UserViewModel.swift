@@ -34,6 +34,7 @@ class UserViewModel: ObservableObject {
             user?.skinAtual = skin
         }
     }
-    
-    
+   
 }
+
+
