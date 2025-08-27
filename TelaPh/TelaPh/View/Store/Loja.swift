@@ -45,7 +45,7 @@ struct Loja: View {
                             showBuySheet = false
                         }
                     
-                    SkinsDetails(selectedSkin: $selectedSkin, skin: DiceSkin?(selectedSkin!) ?? DiceSkin(preco: 200, skinImages: ["PacoteMarinho"], nome: "Pacote Marinho", comprado: false, equipado: false, skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]))
+                    SkinsDetails(selectedSkin: $selectedSkin, skin: DiceSkin?(selectedSkin!) ?? DiceSkin(preco: 200, skinImages: "PacoteMarinho", nome: "Pacote Marinho", comprado: false, equipado: false, skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]))
                 }
             }
         }

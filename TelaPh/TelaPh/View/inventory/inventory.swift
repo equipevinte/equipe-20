@@ -10,7 +10,7 @@ import SwiftUI
 struct inventory: View {
     @State var selecteSkin: DiceSkin?
     @State var showEquipSheet: Bool = false
-    
+
     let colums = [
         GridItem(.flexible(), spacing: 0),
         GridItem(.flexible(), spacing: 0),
@@ -39,7 +39,7 @@ struct inventory: View {
                                 .onTapGesture {
                                     showEquipSheet = false
                                 }
-                            equipSkin(selectedSkin: $selecteSkin, skin: StoreSkins())
+                            equipSkin(selectedSkin: $selecteSkin, Store: StoreSkins())
                         }
                     }
                 }

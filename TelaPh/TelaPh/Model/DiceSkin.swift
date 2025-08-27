@@ -11,13 +11,13 @@ import SwiftUICore
 struct DiceSkin: Identifiable, Hashable{
     var id: UUID = UUID()
     var preco: Int
-    var skinImages: [String]
+    var skinImages: String
     var skinsIndividual: [String]
     var nome: String
     var comprado: Bool
     var equipado: Bool
     
-    init(preco: Int, skinImages: [String], nome: String, comprado: Bool, equipado: Bool, skinsIndividual: [String]){
+    init(preco: Int, skinImages: String, nome: String, comprado: Bool, equipado: Bool, skinsIndividual: [String]){
         self.preco = preco
         self.skinImages = skinImages
         self.skinsIndividual = skinsIndividual
@@ -31,7 +31,7 @@ struct DiceSkin: Identifiable, Hashable{
     class skinsGlobais: ObservableObject{
         @Published var DadoSkinsGlobais: [DiceSkin] = [
             DiceSkin(preco: 200,
-                     skinImages: [String("PacoteMarinho")],
+                     skinImages: "PacoteMarinho",
                      nome: "Pacote Marinho",
                      comprado: false,
                      equipado: false,
@@ -39,31 +39,31 @@ struct DiceSkin: Identifiable, Hashable{
                         
             
             DiceSkin(preco: 200,
-                     skinImages: [String("PacoteMagma")],
+                     skinImages: "PacoteMagma",
                      nome: "Pacote Magma",
                      comprado: false,
                      equipado: false,
                      skinsIndividual:["d4Magma", "d6Magma", "d8Magma", "d10Magma", "d12Magma", "d20Magma"] ),
             DiceSkin(preco: 200,
-                     skinImages: [String("PacoteMusgo")],
+                     skinImages: "PacoteMusgo",
                      nome: "Pacote Musgo",
                      comprado: false,
                      equipado: false,
                      skinsIndividual:["d4Musgo", "d6Musgo", "d8Musgo", "d10Musgo", "d12Musgo", "d20Musgo"] ),
             DiceSkin(preco: 200,
-                     skinImages: [String("PacoteGalatico")],
+                     skinImages: "PacoteGalatico",
                      nome: "Pacote Gálatico",
                      comprado: false,
                      equipado: false,
                      skinsIndividual:["d4Galatico", "d6Galatico", "d8Galatico", "d10Galatico", "d12Galatico", "d20Galatico"] ),
             DiceSkin(preco: 200,
-                     skinImages: [String("PacoteOtimista")],
+                     skinImages: "PacoteOtimista",
                      nome: "Pacote Otimista",
                      comprado: false,
                      equipado: false,
                      skinsIndividual:["d4Otimista", "d6Otimista", "d8Otimista", "d10Otimista", "d12Otimista", "d20Otimista"] ),
             DiceSkin(preco: 200,
-                     skinImages: [String("PacoteFlorest")],
+                     skinImages: "PacoteFlorest",
                      nome: "Pacote Florest",
                      comprado: false,
                      equipado: false,
@@ -73,20 +73,15 @@ struct DiceSkin: Identifiable, Hashable{
 
 class StoreSkins: ObservableObject{
     @Published var skins: [DiceSkin] = [
-        DiceSkin(preco: 0,
-                 skinImages: [String("PacoteDefault")],
-                 nome: "Pacote Padrão",
-                 comprado: true,
-                 equipado: true,
-                 skinsIndividual:["d4", "d6", "d8", "d10", "d12", "d20"] ),
+        DiceSkin(preco: 0, skinImages: "PacotePadrao", nome: "Pacote Padrão", comprado: true, equipado: true, skinsIndividual: ["d4", "d6", "d8", "d10", "d12", "d20"]),
         DiceSkin(preco: 200,
-                 skinImages: [String("PacoteOtimista")],
+                 skinImages: "PacoteOtimista",
                  nome: "Pacote Otimista",
                  comprado: false,
                  equipado: false,
                  skinsIndividual:["d4Otimista", "d6Otimista", "d8Otimista", "d10Otimista", "d12Otimista", "d20Otimista"] ),
         DiceSkin(preco: 200,
-                 skinImages: [String("PacoteFlorest")],
+                 skinImages: "PacoteFlorest",
                  nome: "Pacote Florest",
                  comprado: false,
                  equipado: false,

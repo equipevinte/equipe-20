@@ -9,36 +9,35 @@ import SwiftUI
 
 struct equipSkin: View {
     @Binding var selectedSkin: DiceSkin?
-    let skin: StoreSkins
-    let colums = [
-        GridItem(.flexible(), spacing: 0),
-    ]
+    @StateObject var Store = StoreSkins()
     
+  
     var body: some View {
         VStack{
-           
-            LazyVGrid(columns: colums){
-                ForEach(skin.skins, id: \.self){ skin in
-                    ForEach(skin.skinImages, id: \.self){ image in
-                        Image(image)
-                    }
-                }
+            if let skin = selectedSkin{
+                Image(skin.skinImages)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 189, height: 156)
             }
-            
-            Button(action:{
                 
-            }){
+            
+            Button(action: {
+                if selectedSkin != nil {
+                    print("Equipou")
+                }
+            }) {
                 Text("Equipar")
                     .font(.title)
                     .foregroundStyle(.black)
                     .padding()
             }
-            .padding(.horizontal, 50)
+            .frame(width: 289, height: 56)
             .background(Color.marromClaro)
-            .cornerRadius(10)
-            .padding()
+            .cornerRadius(6)
+
         }
-        .frame(width: 350, height: 300)
+        .frame(width: 350, height: 280)
         .background(Color.marromEscuro)
         .cornerRadius(20)
     }
