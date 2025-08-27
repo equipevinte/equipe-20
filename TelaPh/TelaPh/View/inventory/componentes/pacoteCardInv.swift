@@ -12,7 +12,7 @@ struct pacoteCardInv: View {
     @Binding var showEquipSheet: Bool
     @StateObject var SkinsInv = StoreSkins()
     var body: some View {
-        ForEach(SkinsInv.skins){ skin in
+        ForEach(SkinsInv.skins){ skin in //mudei dps que cooloquei a string como unica
             Button(action:{
                 selectedSkin = skin
                 showEquipSheet = true

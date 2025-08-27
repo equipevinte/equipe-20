@@ -15,14 +15,14 @@ struct equipSkin: View {
     var body: some View {
         VStack{
             if let skin = selectedSkin{
-                Image(skin.skinImages)
+                Image(skin.skinImages) //para aparecer uma imagem dependendo de qual pacote clicar
                     .resizable()
                     .scaledToFit()
                     .frame(width: 189, height: 156)
             }
                 
             
-            Button(action: {
+            Button(action: { //botão de equipar n funcionando ainda
                 if selectedSkin != nil {
                     print("Equipou")
                 }

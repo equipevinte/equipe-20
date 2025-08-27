@@ -11,7 +11,7 @@ import SwiftUICore
 struct DiceSkin: Identifiable, Hashable{
     var id: UUID = UUID()
     var preco: Int
-    var skinImages: String
+    var skinImages: String //transfomei pra string unica
     var skinsIndividual: [String]
     var nome: String
     var comprado: Bool

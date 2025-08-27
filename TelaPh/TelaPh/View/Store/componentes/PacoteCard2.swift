@@ -15,8 +15,7 @@ struct PacoteCard2: View {
     @StateObject var dadosGlobais = skinsGlobais()
     
     var body: some View {
-            //foreach para passar por todos os dados passados no DiceSkinModel
-        
+            //foreach para passar por todos os dados passados no DiceSkinModel  
         ForEach(dadosGlobais.DadoSkinsGlobais){ skin in
             Button(action:{
                 selectedSkin = skin
