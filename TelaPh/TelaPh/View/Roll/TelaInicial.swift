@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TelaInicial: View {
-    
-    @EnvironmentObject var selectDados: SelectDadoViewModel
+    @ObservedObject var rollViewModel: RollViewModel = .shared
+    @ObservedObject var userViewModel: UserViewModel = .shared
     @State private var showSheet: Bool = false
     
     private let columns: [GridItem] = [
@@ -26,6 +26,7 @@ struct TelaInicial: View {
                     // Top Bar
                     HStack {
                         indicadorDeMoedas()
+                            .id(userViewModel.user?.moedas ?? 0)
                         
                         Spacer()
                         
@@ -46,7 +47,7 @@ struct TelaInicial: View {
                                     .foregroundStyle(.marromEscuro.opacity(0.45))
                                     .frame(width: 149, height: 51)
                                     .cornerRadius(10)
-                                Text("\(selectDados.historico.first?.total ?? 0)")
+                                Text("\(rollViewModel.historico.first?.total ?? 0)")
                                     .font(.title)
                                     .fontWeight(.bold)
                             }
@@ -55,7 +56,7 @@ struct TelaInicial: View {
                             Spacer()
                             
                             Button(action: {
-                                selectDados.clearCurrentRoll()
+                                rollViewModel.clearCurrentRoll()
                             }) {
                                 Image(systemName: "eraser.line.dashed.fill")
                                     .font(.largeTitle)
@@ -73,14 +74,14 @@ struct TelaInicial: View {
                         .padding(.trailing)
                     }
                     
-                    if selectDados.selectedDice.isEmpty {
+                    if rollViewModel.selectedDice.isEmpty {
                         RollEmptyState()
                             .padding(20)
                     } else {
                         LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(selectDados.selectedDice.indices, id: \.self) { index in
+                            ForEach(rollViewModel.selectedDice.indices, id: \.self) { index in
                                 VStack {
-                                    Image(selectDados.selectedDice[index].ImageName)
+                                    Image(rollViewModel.selectedDice[index].ImageName)
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 80, height: 80)
@@ -104,9 +105,9 @@ struct TelaInicial: View {
                     
                     Spacer()
                     
-                    if selectDados.selectedDice.isEmpty || selectDados.hasRolled == true {
+                    if rollViewModel.selectedDice.isEmpty || rollViewModel.hasRolled == true {
                         NavigationLink(destination: dados(), label: {
-                            Text(selectDados.hasRolled == true ? "Nova rolagem" : "Escolher dados")
+                            Text(rollViewModel.hasRolled == true ? "Nova rolagem" : "Escolher dados")
                                 .padding()
                                 .frame(height: 67)
                                 .background(.marromEscuro)
@@ -117,9 +118,10 @@ struct TelaInicial: View {
                         .padding()
                     } else {
                         PrimaryButton(title: "Rolar dados", action: {
-                            selectDados.rolarDado()
+                            rollViewModel.rolarDado()
+                            userViewModel.addMoedas(valor: 10)
                         })
-                        .disabled(selectDados.selectedDice.isEmpty)
+                        .disabled(rollViewModel.selectedDice.isEmpty)
                         .padding()
                     }
                 }
@@ -135,6 +137,6 @@ struct TelaInicial: View {
 
 #Preview {
     TelaInicial()
-        .environmentObject(SelectDadoViewModel())
+
 }
 

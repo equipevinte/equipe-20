@@ -10,7 +10,7 @@ import SwiftUI
 struct RollHistorySheet: View {
     
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var selectDados: SelectDadoViewModel
+    @ObservedObject var rollViewModel = RollViewModel.shared
 
     var body: some View {
         ZStack {
@@ -26,7 +26,7 @@ struct RollHistorySheet: View {
                     
                     Spacer()
                     Button(action:{
-                        selectDados.historico.removeAll()
+                        rollViewModel.historico.removeAll()
                     }){
                         Image(systemName: "trash.fill")
                             .resizable()

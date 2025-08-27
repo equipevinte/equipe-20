@@ -39,7 +39,7 @@ struct inventory: View {
                                 .onTapGesture {
                                     showEquipSheet = false
                                 }
-                            equipSkin(selectedSkin: $selecteSkin, Store: StoreSkins())
+                            equipSkin(selectedSkin: $selecteSkin)
                         }
                     }
                 }

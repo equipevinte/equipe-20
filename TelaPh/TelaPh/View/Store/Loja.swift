@@ -5,13 +5,9 @@
 //  Created by iredefbmac_22 on 15/07/25.
 //
 
-
-
 import SwiftUI
 
-
 struct Loja: View {
-    @State var listaSkinsdado: skinsGlobais = skinsGlobais()
     @State private var buttonCompra: Bool = true
     @State var showBuySheet: Bool = false
     @State var selectedSkin: DiceSkin?
@@ -45,7 +41,12 @@ struct Loja: View {
                             showBuySheet = false
                         }
                     
-                    SkinsDetails(selectedSkin: $selectedSkin, skin: DiceSkin?(selectedSkin!) ?? DiceSkin(preco: 200, skinImages: "PacoteMarinho", nome: "Pacote Marinho", comprado: false, equipado: false, skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]))
+//                    SkinsDetails(selectedSkin: $selectedSkin, skin: selectedSkin!) ?? DiceSkin(preco: 200, skinImages: "PacoteMarinho", nome: "Pacote Marinho", comprado: false, equipado: false, skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]))
+                    
+                    // SUBSTITUI TODO O CÓDIGO ACIMA POR ESSE DEBAIXO, FAZENDO A VERIFICACAO COM IF LET NÃO PRECISAMOS CRIAR UMA DICESKIN CASO NÃO TENHA UM SELECTEDSKIN
+                    if let skin = selectedSkin {
+                        SkinsDetails(selectedSkin: $selectedSkin, skin: skin)
+                    }
                 }
             }
         }

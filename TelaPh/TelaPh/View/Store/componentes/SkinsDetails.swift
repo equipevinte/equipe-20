@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SkinsDetails: View {
-    @State private var comprarSkin: UserViewModel?
+    // A GENTE NAO PRECISA RECEBER A VIEWMODEL, USAMOS O SINGLETON (SHARED) JUSTAMENTE PRA ISSO, PODEMOS ACESSAR A MESMA INSTANCIA EM TODO O CODIGO
+    @ObservedObject var userViewModel = UserViewModel.shared
     @Binding var selectedSkin: DiceSkin?
     let skin: DiceSkin
     
@@ -44,7 +45,11 @@ struct SkinsDetails: View {
             }
             
             Button(action: {
-                comprarSkin?.comprarSkin(skin: DiceSkin?(selectedSkin!) ?? DiceSkin(preco: 200, skinImages: "PacoteMarinho", nome: "Pacote Marinho", comprado: false, equipado: false, skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]))
+                if let skinToBuy = selectedSkin{
+                    userViewModel.comprarSkin(skin: skinToBuy)
+                } else {
+                    print("erro ao receber skin")
+                }
             }){
                 Text("Comprar")
                     .foregroundStyle(.black)

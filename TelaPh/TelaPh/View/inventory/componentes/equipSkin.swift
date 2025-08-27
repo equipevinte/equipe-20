@@ -9,9 +9,7 @@ import SwiftUI
 
 struct equipSkin: View {
     @Binding var selectedSkin: DiceSkin?
-    @StateObject var Store = StoreSkins()
     
-  
     var body: some View {
         VStack{
             if let skin = selectedSkin{

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUICore
 
-struct DiceSkin: Identifiable, Hashable{
+struct DiceSkin: Identifiable, Hashable, Codable {
     var id: UUID = UUID()
     var preco: Int
     var skinImages: String //transfomei pra string unica
@@ -26,88 +26,33 @@ struct DiceSkin: Identifiable, Hashable{
         self.equipado = equipado
         self.id = UUID()
     }
-
+    
 }
-    class skinsGlobais: ObservableObject{
-        @Published var DadoSkinsGlobais: [DiceSkin] = [
-            DiceSkin(preco: 200,
-                     skinImages: "PacoteMarinho",
-                     nome: "Pacote Marinho",
-                     comprado: false,
-                     equipado: false,
-                     skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]),
-                        
-            
-            DiceSkin(preco: 200,
-                     skinImages: "PacoteMagma",
-                     nome: "Pacote Magma",
-                     comprado: false,
-                     equipado: false,
-                     skinsIndividual:["d4Magma", "d6Magma", "d8Magma", "d10Magma", "d12Magma", "d20Magma"] ),
-            DiceSkin(preco: 200,
-                     skinImages: "PacoteMusgo",
-                     nome: "Pacote Musgo",
-                     comprado: false,
-                     equipado: false,
-                     skinsIndividual:["d4Musgo", "d6Musgo", "d8Musgo", "d10Musgo", "d12Musgo", "d20Musgo"] ),
-            DiceSkin(preco: 200,
-                     skinImages: "PacoteGalatico",
-                     nome: "Pacote Gálatico",
-                     comprado: false,
-                     equipado: false,
-                     skinsIndividual:["d4Galatico", "d6Galatico", "d8Galatico", "d10Galatico", "d12Galatico", "d20Galatico"] ),
-            DiceSkin(preco: 200,
-                     skinImages: "PacoteOtimista",
-                     nome: "Pacote Otimista",
-                     comprado: false,
-                     equipado: false,
-                     skinsIndividual:["d4Otimista", "d6Otimista", "d8Otimista", "d10Otimista", "d12Otimista", "d20Otimista"] ),
-            DiceSkin(preco: 200,
-                     skinImages: "PacoteFlorest",
-                     nome: "Pacote Florest",
-                     comprado: false,
-                     equipado: false,
-                     skinsIndividual:["d4Florest", "d6Florest", "d8Florest", "d10Florest", "d12Florest", "d20Florest"] ),
-        ]
-    }
 
-class StoreSkins: ObservableObject{
-    @Published var skins: [DiceSkin] = [
-        DiceSkin(preco: 0, skinImages: "PacotePadrao", nome: "Pacote Padrão", comprado: true, equipado: true, skinsIndividual: ["d4", "d6", "d8", "d10", "d12", "d20"]),
-        DiceSkin(preco: 200,
-                 skinImages: "PacoteOtimista",
-                 nome: "Pacote Otimista",
-                 comprado: false,
-                 equipado: false,
-                 skinsIndividual:["d4Otimista", "d6Otimista", "d8Otimista", "d10Otimista", "d12Otimista", "d20Otimista"] ),
-        DiceSkin(preco: 200,
-                 skinImages: "PacoteFlorest",
-                 nome: "Pacote Florest",
-                 comprado: false,
-                 equipado: false,
-                 skinsIndividual:["d4Florest", "d6Florest", "d8Florest", "d10Florest", "d12Florest", "d20Florest"] ),
-
-        
-    ]
-}
-    func colorParaSkinName(_ nome: String) -> Color{
-        switch nome{
-        case "Pacote Marinho":
-            return .azulMarinho
-        case "Pacote Magma":
-            return .vermelhoMagma
-        case "Pacote Otimista":
-            return .vermelho
-        case "Pacote Musgo":
-            return .verdemusgo
-        case "Pacote Gálatico":
-            return .roxogalatico
-        case "Pacote Florest":
-            return .verdeFlorest
-        case "Pacote Padrão":
-            return .white
-        default:
-            return .black
+enum TipoDado: String, CaseIterable, Identifiable {
+    case d4, d6, d8, d10, d12, d20
+    
+    var id: String { rawValue }
+    
+    var ImageName: String {
+        switch self {
+        case .d4: return "d4"
+        case .d6: return "d6"
+        case .d8: return "d8"
+        case .d10: return "d10"
+        case .d12: return "d12"
+        case .d20: return "d20"
         }
     }
-
+    
+    var sides: Int {
+        switch self {
+        case .d4: return 4
+        case .d6: return 6
+        case .d8: return 8
+        case .d10: return 10
+        case .d12: return 12
+        case .d20: return 20
+        }
+    }
+}

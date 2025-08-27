@@ -8,41 +8,35 @@
 import SwiftUI
 
 struct Root: View {
-    @StateObject private var selectDados = SelectDadoViewModel()
-    @State private var selectedTab = 0 // Start on the "Rolagens" tab
-
+    @State private var selectedTab = 0
+    
     var body: some View {
         TabView(selection: $selectedTab) {
-            
-//            dados()
-//                .tabItem {
-//                    Image(systemName: "dice.fill")
-//                    Text("Dados")
-//                }
-//                .tag(0) // IMPORTANT: Tag for the first tab
             
                 TelaInicial()
             .tabItem {
                 Image(systemName: "play.fill")
                 Text("Rolagens")
             }
-            .tag(0) // IMPORTANT: Tag for the second tab
+            .tag(0)
             
             Loja()
                 .tabItem {
                     Image(systemName: "storefront.fill")
                     Text("Loja")
                 }
-                .tag(1) // IMPORTANT: Tag for the third tab
+                .tag(1)
             
             inventory()
                 .tabItem {
                     Image(systemName: "backpack.fill")
                     Text("Inventário")
                 }
-                .tag(2) // IMPORTANT: Tag for the third tab
+                .tag(2)
         }
-        .environmentObject(selectDados)
+        .onAppear {
+            UserViewModel.shared.createUser()
+        }
     }
 }
 

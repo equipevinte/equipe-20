@@ -12,11 +12,10 @@ import SwiftUI
 struct PacoteCard2: View {
     @Binding var selectedSkin: DiceSkin?
     @Binding var showBuySheet: Bool
-    @StateObject var dadosGlobais = skinsGlobais()
     
     var body: some View {
             //foreach para passar por todos os dados passados no DiceSkinModel  
-        ForEach(dadosGlobais.DadoSkinsGlobais){ skin in
+        ForEach(DiceSkinRepository.all){ skin in
             Button(action:{
                 selectedSkin = skin
                 showBuySheet = true

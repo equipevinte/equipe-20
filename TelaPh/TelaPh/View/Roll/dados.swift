@@ -9,7 +9,7 @@ import SwiftUI
 
 struct dados: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: SelectDadoViewModel
+    @ObservedObject var rollViewModel = RollViewModel.shared
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -35,9 +35,9 @@ struct dados: View {
                                     .bold()
                                 
                                 RectangleCount(
-                                    count: viewModel.count(for: dado),
-                                    onDecrement: { viewModel.removeDado(dado) },
-                                    onIncrement: { viewModel.addDado(dado) }
+                                    count: rollViewModel.count(for: dado),
+                                    onDecrement: { rollViewModel.removeDado(dado) },
+                                    onIncrement: { rollViewModel.addDado(dado) }
                                 )
                             }
                         }
@@ -54,7 +54,7 @@ struct dados: View {
                         Spacer()
                         Button(action: {
                             dismiss()
-                            viewModel.hasRolled = false
+                            rollViewModel.hasRolled = false
                         }){
                             Text("Confirmar")
                                 .font(.title)
@@ -66,8 +66,8 @@ struct dados: View {
                                         .foregroundStyle(.marromEscuro)
                                     
                                 }
-                                .disabled(viewModel.selectedDice.isEmpty)
-                                .opacity(viewModel.selectedDice.isEmpty ? 0 : 1)
+                                .disabled(rollViewModel.selectedDice.isEmpty)
+                                .opacity(rollViewModel.selectedDice.isEmpty ? 0 : 1)
                         
                     }
                     Spacer()
@@ -144,5 +144,4 @@ struct dados: View {
 
 #Preview {
     dados()
-        .environmentObject(SelectDadoViewModel())
 }

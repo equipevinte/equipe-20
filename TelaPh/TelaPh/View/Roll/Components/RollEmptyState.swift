@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct RollEmptyState: View {
-    @EnvironmentObject var selectDados: SelectDadoViewModel
+    @ObservedObject var rollViewModel = RollViewModel.shared
 
     var body: some View {
         ZStack {
             Color.marromEscuro.opacity(0.45)
-            if selectDados.selectedDice.isEmpty {
+            if rollViewModel.selectedDice.isEmpty {
                 Text("Por favor,\n escolha um dado\npara rolar.")
                     .font(.title)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.marromEscuro)
             }
-            else if selectDados.rollResult.isEmpty {
+            else if rollViewModel.rollResult.isEmpty {
                 Text("Por favor,\n inicie a rolagem.")
                     .font(.title)
                     .fontWeight(.bold)
@@ -28,7 +28,7 @@ struct RollEmptyState: View {
                     .foregroundColor(.marromEscuro)
             } else {
                 ScrollView {
-                    Text(selectDados.rollResult.map(String.init).joined(separator: " , "))
+                    Text(rollViewModel.rollResult.map(String.init).joined(separator: " , "))
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)

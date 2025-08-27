@@ -10,7 +10,7 @@ import SwiftUI
 struct PacoteCard: View {
     @Binding var selectedSkin: DiceSkin?
     @Binding var showBuySheet: Bool
-    @State private var dadosGlobais = skinsGlobais()
+    
     let colums = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)

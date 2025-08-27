@@ -8,32 +8,32 @@
 import SwiftUI
 
 struct pacoteCardInv: View {
+    @ObservedObject var userViewModel = UserViewModel.shared
     @Binding var selectedSkin: DiceSkin?
     @Binding var showEquipSheet: Bool
-    @StateObject var SkinsInv = StoreSkins()
+    
     var body: some View {
-        ForEach(SkinsInv.skins){ skin in //mudei dps que cooloquei a string como unica
-            Button(action:{
-                selectedSkin = skin
-                showEquipSheet = true
-            }){
-                VStack{
-                    Text(skin.nome)
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundStyle(colorParaSkinName(skin.nome))
-                    
-                    Image(skin.skinImages)
-                    
+        if let user = userViewModel.user {
+            ForEach(user.skinsCompradas, id: \.nome) { skin in
+                Button(action:{
+                    selectedSkin = skin
+                    showEquipSheet = true
+                }){
+                    VStack{
+                        Text(skin.nome)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundStyle(colorParaSkinName(skin.nome))
+                        
+                        Image(skin.skinImages)
+                        
+                    }
+                    .padding()
+                    .background(Color.marromEscuro)
+                    .cornerRadius(20)
                 }
-                .padding()
-                .background(Color.marromEscuro)
-                .cornerRadius(20)
             }
         }
-                
-            
-        
     }
 }
 

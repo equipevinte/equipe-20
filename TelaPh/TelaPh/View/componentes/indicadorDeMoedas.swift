@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct indicadorDeMoedas: View {
+    @ObservedObject var userViewModel = UserViewModel.shared
     var body: some View {
         HStack {
             Image("moeda")
             
-            Text("10")
-                .fontWeight(.semibold)
-                .font(.title2)
+            if let user = userViewModel.user {
+                Text(user.moedas.description)
+                    .fontWeight(.semibold)
+                    .font(.title2)
+            } else {
+                Text("000")
+                    .fontWeight(.semibold)
+                    .font(.title2)
+            }
+            
             
             Spacer()
         }
