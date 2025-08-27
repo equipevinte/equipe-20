@@ -35,9 +35,9 @@ struct Root: View {
                 }
                 .tag(1) // IMPORTANT: Tag for the third tab
             
-            Loja()
+            inventory()
                 .tabItem {
-                    Image(systemName: "storefront.fill")
+                    Image(systemName: "backpack.fill")
                     Text("Inventário")
                 }
                 .tag(2) // IMPORTANT: Tag for the third tab

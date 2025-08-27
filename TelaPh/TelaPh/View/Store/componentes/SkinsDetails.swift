@@ -44,7 +44,7 @@ struct SkinsDetails: View {
             }
             
             Button(action: {
-                comprarSkin?.comprarSkin(skin: DiceSkin?(selectedSkin!) ?? DiceSkin(preco: 200, skinImages: ["PacoteMarinho"], nome: "Pacote Marinho", comprado: false, equipado: false, skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]))
+                comprarSkin?.comprarSkin(skin: DiceSkin?(selectedSkin!) ?? DiceSkin(preco: 200, skinImages: "PacoteMarinho", nome: "Pacote Marinho", comprado: false, equipado: false, skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"]))
             }){
                 Text("Comprar")
                     .foregroundStyle(.black)
