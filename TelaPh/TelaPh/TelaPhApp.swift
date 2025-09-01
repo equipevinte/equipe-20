@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct TelaPhApp: App {
     var body: some Scene {
         WindowGroup {
             Root()
+                .modelContainer(for: [User.self, Rolagem.self])
         }
     }
 }

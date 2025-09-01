@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 // TODO: ESTUDAR MELHOR ISSO AQUI
 
@@ -17,11 +18,26 @@ class UserViewModel: ObservableObject {
     
     @Published var user: User?
     
-    func createUser() {
-        // quando tiver persistencia, colocar um condicional para que se tiver salvo um usuario essa funcao nao eh chamada, assim so sera criado um usuario uma vez
+    func createUser(context: ModelContext) {
+        do{
+            var descriptor = FetchDescriptor<User>()
+            descriptor.fetchLimit = 1
+            if let user = try context.fetch(descriptor).first{
+                self.user = user
+                return
+            }
+        }catch{
+            print("Erro ao buscar usuario: \(error)")
+        }
         let user = User(moedas: 0, skinAtual: DiceSkin(preco: 0, skinImages: "aaa", nome: "aa", comprado: true, equipado: false, skinsIndividual: []), skinsCompradas: [])
         self.user = user
         print("Usuário criado")
+        context.insert(user)
+        do{
+            try context.save()
+        } catch{
+            print("Erro ao salvar usuário: \(error)")
+        }
     }
     
     func addMoedas(valor: Int) {

@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TelaInicial: View {
+    @Environment(\.modelContext) var context
     @ObservedObject var rollViewModel: RollViewModel = .shared
     @ObservedObject var userViewModel: UserViewModel = .shared
     @State private var showSheet: Bool = false
+    
     
     private let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -118,7 +121,7 @@ struct TelaInicial: View {
                         .padding()
                     } else {
                         PrimaryButton(title: "Rolar dados", action: {
-                            rollViewModel.rolarDado()
+                            rollViewModel.rolarDado(context: context)
                             userViewModel.addMoedas(valor: 10)
                         })
                         .disabled(rollViewModel.selectedDice.isEmpty)
@@ -129,6 +132,10 @@ struct TelaInicial: View {
             .sheet(isPresented: $showSheet) {
                 RollHistorySheet()
             }
+            .onAppear{
+                rollViewModel.fetchRoll(context: context)
+            }
+            
         }
         
         .navigationBarBackButtonHidden(true)
