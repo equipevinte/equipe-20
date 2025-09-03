@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TelaInicial: View {
+    @Environment(\.modelContext) var context
     @ObservedObject var rollViewModel: RollViewModel = .shared
     @ObservedObject var userViewModel: UserViewModel = .shared
     @State private var showSheet: Bool = false
+    
     
     private let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -53,6 +56,7 @@ struct TelaInicial: View {
                             }
                             .padding(.leading, 20)
                             
+                            
                             Spacer()
                             
                             Button(action: {
@@ -75,34 +79,43 @@ struct TelaInicial: View {
                     }
                     
                     if rollViewModel.selectedDice.isEmpty {
-                        RollEmptyState()
-                            .padding(20)
-                    } else {
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(rollViewModel.selectedDice.indices, id: \.self) { index in
-                                VStack {
-                                    Image(rollViewModel.selectedDice[index].ImageName)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 80, height: 80)
-                                    
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .frame(width: 83, height: 46)
-                                        .foregroundStyle(.bege)
-                                        .overlay {
-                                           Text("10")
-                                        }
+                            RollEmptyState()
+                                .padding(20)
+                        } else {
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(rollViewModel.selectedDice.indices, id: \.self) { index in
+                                    VStack {
+                                        Image(rollViewModel.selectedDice[index].ImageName)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 80, height: 80)
+                                        
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .frame(width: 83, height: 46)
+                                            .foregroundStyle(.bege)
+                                            .overlay {
+                                                if rollViewModel.rollResult.indices.contains(index) {
+                                                            Text("\(rollViewModel.rollResult[index])")
+                                                                .font(.title2)
+                                                                .fontWeight(.bold)
+                                                                .foregroundColor(.marromEscuro)
+                                                        } else {
+                                                            Text("0") // enquanto não rolou
+                                                                .font(.title2)
+                                                                .foregroundColor(.marromEscuro)
+                                                        }
+                                            }
+                                    }
                                 }
                             }
+                            .padding()
+                            .background {
+                                Color.marromClaro
+                            }
+                            .cornerRadius(20)
+                            .padding()
                         }
-                        .padding()
-                        .background {
-                            Color.marromClaro
-                        }
-                        .cornerRadius(20)
-                        .padding()
-                    }
-                    
+            
                     Spacer()
                     
                     if rollViewModel.selectedDice.isEmpty || rollViewModel.hasRolled == true {
@@ -118,7 +131,7 @@ struct TelaInicial: View {
                         .padding()
                     } else {
                         PrimaryButton(title: "Rolar dados", action: {
-                            rollViewModel.rolarDado()
+                            rollViewModel.rolarDado(context: context)
                             userViewModel.addMoedas(valor: 10)
                         })
                         .disabled(rollViewModel.selectedDice.isEmpty)
@@ -129,6 +142,10 @@ struct TelaInicial: View {
             .sheet(isPresented: $showSheet) {
                 RollHistorySheet()
             }
+            .onAppear{
+                rollViewModel.fetchRoll(context: context)
+            }
+            
         }
         
         .navigationBarBackButtonHidden(true)

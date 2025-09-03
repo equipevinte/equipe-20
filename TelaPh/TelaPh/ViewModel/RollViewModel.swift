@@ -1,4 +1,5 @@
 import Foundation
+import SwiftData
 
 class RollViewModel: ObservableObject {
     @Published var hasRolled: Bool = false
@@ -22,7 +23,7 @@ class RollViewModel: ObservableObject {
         return selectedDice.count(where: {$0 == dado })
     }
     
-    func rolarDado() {
+    func rolarDado(context: ModelContext) {
         rollResult = selectedDice.map { die in
             Int.random(in: 1...die.sides)
         }.sorted()
@@ -32,6 +33,12 @@ class RollViewModel: ObservableObject {
         let novaRolagem = Rolagem(results: rollResult)
         
         historico.append(novaRolagem)
+        context.insert(novaRolagem)
+        do{
+            try context.save()
+        } catch{
+            print("Erro ao salvar: \(error)")
+        }
         
         hasRolled = true
     }
@@ -39,7 +46,15 @@ class RollViewModel: ObservableObject {
     func clearCurrentRoll() {
         selectedDice.removeAll()
         rollResult.removeAll()
-        historico.removeAll()
+    }
+    
+    func fetchRoll(context: ModelContext){
+        let descriptor = FetchDescriptor<Rolagem>()
+        do{
+            historico = try context.fetch(descriptor)
+        } catch{
+            print("Erro ao buscar: \(error)")
+        }
     }
     
 }

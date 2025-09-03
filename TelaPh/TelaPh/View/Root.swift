@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Root: View {
     @State private var selectedTab = 0
+    @Environment(\.modelContext) var context
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -27,7 +29,7 @@ struct Root: View {
                 }
                 .tag(1)
             
-            inventory()
+            Inventory()
                 .tabItem {
                     Image(systemName: "backpack.fill")
                     Text("Inventário")
@@ -35,7 +37,7 @@ struct Root: View {
                 .tag(2)
         }
         .onAppear {
-            UserViewModel.shared.createUser()
+            UserViewModel.shared.createUser(context: context)
         }
     }
 }

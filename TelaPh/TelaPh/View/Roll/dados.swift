@@ -10,6 +10,8 @@ import SwiftUI
 struct dados: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var rollViewModel = RollViewModel.shared
+    @ObservedObject var userVm = UserViewModel.shared
+    
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -22,27 +24,8 @@ struct dados: View {
                 
                 VStack(spacing: 30) {
                     
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(TipoDado.allCases, id: \.self) { dado in
-                            VStack {//dado
-                                Image(dado.ImageName)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 80, height: 80)
-                                
-                                Text(dado.rawValue.uppercased())
-                                    .font(.title2)
-                                    .bold()
-                                
-                                RectangleCount(
-                                    count: rollViewModel.count(for: dado),
-                                    onDecrement: { rollViewModel.removeDado(dado) },
-                                    onIncrement: { rollViewModel.addDado(dado) }
-                                )
-                            }
-                        }
-                    }
-                    .padding()
+                    DiceLazy()
+                    
                     
                     Text("Modificador")
                         .font(.largeTitle)

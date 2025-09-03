@@ -55,4 +55,15 @@ enum TipoDado: String, CaseIterable, Identifiable {
         case .d20: return 20
         }
     }
+    
+    func tipoDado(from DiceString: String) -> TipoDado {
+        if DiceString.contains("d4") { return .d4 }
+        if DiceString.contains("d6") { return .d6 }
+        if DiceString.contains("d8") { return .d8 }
+        if DiceString.contains("d10") { return .d10 }
+        if DiceString.contains("d12") { return .d12 }
+        return .d20
+    }
 }
+
+

@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import SwiftData
 
+@Model
 class User {
     var moedas: Int
     var skinAtual: DiceSkin

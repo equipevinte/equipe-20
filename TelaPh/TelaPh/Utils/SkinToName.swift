@@ -20,7 +20,7 @@ func colorParaSkinName(_ nome: String) -> Color{
         return .roxogalatico
     case "Pacote Florest":
         return .verdeFlorest
-    case "Pacote Padrão":
+    case "Pacote Default":
         return .white
     default:
         return .black

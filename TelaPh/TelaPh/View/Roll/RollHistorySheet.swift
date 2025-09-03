@@ -49,11 +49,17 @@ struct RollHistorySheet: View {
                     }
                 }
                 
-                Image("DadoPensando")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 250, height: 250)
-                Spacer()
+                if(rollViewModel.historico.isEmpty){
+                    Image("DadoPensando")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250, height: 250)
+                    Spacer()
+                }else{
+                    ForEach(rollViewModel.historico){rolagem in
+                        Text(rolagem.total.description)
+                    }
+                }
             }
         }
     }

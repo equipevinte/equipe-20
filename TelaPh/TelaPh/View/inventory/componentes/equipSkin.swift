@@ -7,23 +7,29 @@
 
 import SwiftUI
 
-struct equipSkin: View {
+struct EquipSkin: View {
     @Binding var selectedSkin: DiceSkin?
+    @ObservedObject var userVm = UserViewModel.shared
     
     var body: some View {
-        VStack{
-            if let skin = selectedSkin{
-                Image(skin.skinImages) //para aparecer uma imagem dependendo de qual pacote clicar
+        VStack {
+            if let skin = selectedSkin {
+                Image(skin.skinImages)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 189, height: 156)
             }
+
+            Button(action: {
+                guard let skin = selectedSkin else { return }
                 
-            
-            Button(action: { //botão de equipar n funcionando ainda
-                if selectedSkin != nil {
-                    print("Equipou")
-                }
+                // Equipa a skin no UserViewModel
+                userVm.equiparSkin(skin: skin)
+                
+                // Atualiza o selectedSkin para refletir visualmente
+                selectedSkin = userVm.user?.skinAtual
+                
+                print("Equipou \(skin.nome)")
             }) {
                 Text("Equipar")
                     .font(.title)
@@ -40,5 +46,3 @@ struct equipSkin: View {
         .cornerRadius(20)
     }
 }
-
-
