@@ -7,47 +7,54 @@
 
 import SwiftUI
 
-struct inventory: View {
-    @State var selecteSkin: DiceSkin?
-    @State var showEquipSheet: Bool = false
+struct Inventory: View {
+    @State private var selectedSkin: DiceSkin?
+    @State private var showEquipSheet: Bool = false
+    @ObservedObject var userVm = UserViewModel.shared
 
-    let colums = [
-        GridItem(.flexible(), spacing: 0),
-        GridItem(.flexible(), spacing: 0),
+    private let columns = [
+        GridItem(.flexible(), spacing: 10),
+        GridItem(.flexible(), spacing: 10)
     ]
+    
     var body: some View {
-        ZStack(alignment: .top){
-            Color.bege.ignoresSafeArea(.all)
+        ZStack(alignment: .top) {
+            Color.bege.ignoresSafeArea()
             
-            ZStack{
-                VStack{
-                    Text("Inventory")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    
-                    ScrollView{
-                    LazyVGrid(columns: colums){
-                        pacoteCardInv(selectedSkin: $selecteSkin, showEquipSheet: $showEquipSheet)
-                        
-                    }
-                }
-                }
-                .overlay{
-                    if showEquipSheet{
-                        ZStack{
-                            Color.black.opacity(0.2).ignoresSafeArea(.all)
-                                .onTapGesture {
-                                    showEquipSheet = false
-                                }
-                            equipSkin(selectedSkin: $selecteSkin)
+            VStack {
+                Text("Inventory")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding()
+                
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        ForEach(userVm.skinsParaMostrar, id: \.id) { skin in
+                            pacoteCardInv(
+                                skin: skin,
+                                selectedSkin: $selectedSkin,
+                                showEquipSheet: $showEquipSheet
+                            )
                         }
                     }
+                    .padding()
+                }
+            }
+            
+            if showEquipSheet, let skin = selectedSkin {
+                ZStack {
+                    Color.black.opacity(0.2).ignoresSafeArea()
+                        .onTapGesture {
+                            showEquipSheet = false
+                        }
+                    
+                    EquipSkin(selectedSkin: $selectedSkin)
+                        .frame(width: 350, height: 280)
                 }
             }
         }
     }
 }
-
 #Preview {
-    inventory()
+    Inventory()
 }

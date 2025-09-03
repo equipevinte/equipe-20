@@ -29,7 +29,7 @@ struct Root: View {
                 }
                 .tag(1)
             
-            inventory()
+            Inventory()
                 .tabItem {
                     Image(systemName: "backpack.fill")
                     Text("Inventário")
