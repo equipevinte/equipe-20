@@ -48,7 +48,7 @@ struct Inventory: View {
                             showEquipSheet = false
                         }
                     
-                    EquipSkin(selectedSkin: $selectedSkin)
+                    EquipSkin(selectedSkin: $selectedSkin, showEquipSheet: $showEquipSheet)
                         .frame(width: 350, height: 280)
                 }
             }

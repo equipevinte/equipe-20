@@ -76,21 +76,18 @@ class UserViewModel: ObservableObject {
 }
 extension UserViewModel {
     var skinsParaMostrar: [DiceSkin] {
-        guard let user else { return [] }
+        guard let user = user else { return [] }
 
-        var skins: [DiceSkin] = []
+           var skins: [DiceSkin] = []
 
-        // Sempre inclui a skin atual primeiro
-        skins.append(user.skinAtual)
+           // Adiciona o pacote default se não estiver nas compradas
+           if !user.skinsCompradas.contains(where: { $0.id == DiceSkinRepository.PacoteDefault.id }) {
+               skins.append(DiceSkinRepository.PacoteDefault)
+           }
 
-        // Adiciona as skins compradas que não são a skin atual nem duplicadas
-        for skin in user.skinsCompradas {
-            if skin.id != user.skinAtual.id && !skins.contains(where: { $0.id == skin.id }) {
-                skins.append(skin)
-            }
-        }
+           // Adiciona todas as skins compradas (incluindo o default, se já estiver comprada)
+           skins.append(contentsOf: user.skinsCompradas)
 
-        // Se o usuário não comprou nada além do default, ele já está incluso como skinAtual
-        return skins
+           return skins
     }
 }
