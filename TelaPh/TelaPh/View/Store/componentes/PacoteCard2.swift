@@ -7,8 +7,6 @@
 
 import SwiftUI
 //View para amenizar a tela Pacotecard e resolver um erro
-import SwiftUI
-//View para amenizar a tela Pacotecard e resolver um erro
 struct PacoteCard2: View {
     @Binding var selectedSkin: DiceSkin?
     @Binding var showBuySheet: Bool
