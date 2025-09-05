@@ -85,10 +85,12 @@ struct TelaInicial: View {
                             LazyVGrid(columns: columns, spacing: 20) {
                                 ForEach(rollViewModel.selectedDice.indices, id: \.self) { index in
                                     VStack {
-                                        Image(rollViewModel.selectedDice[index].ImageName)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 80, height: 80)
+                                        if let user = userViewModel.user {
+                                            Image("\(rollViewModel.selectedDice[index].ImageName + user.skinAtual.skinImages)")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 80, height: 80)
+                                        }
                                         
                                         RoundedRectangle(cornerRadius: 10)
                                             .frame(width: 83, height: 46)
@@ -146,6 +148,13 @@ struct TelaInicial: View {
                 rollViewModel.fetchRoll(context: context)
             }
             
+        }
+        .onAppear {
+            if rollViewModel.selectedDice.isEmpty {
+                print("vaziooo")
+            } else {
+                print("\(rollViewModel.selectedDice[0].ImageName + rollViewModel.selectedDice[0].ImageName)")
+            }
         }
         
         .navigationBarBackButtonHidden(true)

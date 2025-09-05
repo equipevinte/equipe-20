@@ -14,7 +14,7 @@ struct RollHistorySheet: View {
     // Cores
     let vermelhoHist = Color(red: 94/255, green: 42/255, blue: 42/255).opacity(0.3)
     let azulHist = Color(red: 38/255, green: 70/255, blue: 83/255).opacity(0.3)
-    let legenHist = Color(red: 204/255, green: 231/255, blue: 255/255)
+    let legenHistt = Color(red: 204/255, green: 231/255, blue: 255/255)
     
     var body: some View {
         VStack(spacing: 10) {
@@ -61,22 +61,21 @@ struct RollHistorySheet: View {
                 ScrollView {
                     VStack(spacing: 12) {
                         ForEach(Array(rollViewModel.historico.enumerated()), id: \.element.id) { index, rolagem in
-                            let bgColor = index % 2 == 0 ? vermelhoHist : azulHist
-                            
+                           
                             VStack(alignment: .leading, spacing: 5) {
                                 // Dados rolados na ordem
                                 Text(rolagem.results.map { String($0) }.joined(separator: ", "))
                                     .fontWeight(.medium)
-                                    .foregroundColor(legenHist)
+                                    .foregroundColor(legenHistt)
                                 
                                 // Soma detalhada
                                 Text(rolagem.results.map { String($0) }.joined(separator: " + ") + " = \(rolagem.total)")
                                     .fontWeight(.bold)
-                                    .foregroundColor(legenHist)
+                                    .foregroundColor(legenHistt)
                             }
                             .padding()
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(bgColor)
+                            .background(index % 2 == 0 ? Color.verdeHist : Color.vermelhoHist)
                             .cornerRadius(12)
                             .padding(.horizontal)
                         }

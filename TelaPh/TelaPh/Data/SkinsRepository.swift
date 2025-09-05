@@ -15,14 +15,14 @@ struct DiceSkinRepository  {
                                  skinsIndividual: ["d4Default", "d6Default", "d8Default", "d10Default", "d12Default", "d20Default"])
     
     static let PacoteMarinho = DiceSkin(preco: 1,
-                                 skinImages: "PacoteMarinho",
+                                 skinImages: "Marinho",
                                  nome: "Pacote Marinho",
                                  comprado: false,
                                  equipado: false,
                                  skinsIndividual: ["d4Marinho", "d6Marinho", "d8Marinho", "d10Marinho", "d12Marinho", "d20Marinho"])
     
     static let PacoteMagma = DiceSkin(preco: 1,
-                               skinImages: "PacoteMagma",
+                               skinImages: "Magma",
                                nome: "Pacote Magma",
                                comprado: false,
                                equipado: false,
