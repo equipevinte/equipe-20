@@ -156,4 +156,3 @@ struct TelaInicial: View {
     TelaInicial()
 
 }
-
