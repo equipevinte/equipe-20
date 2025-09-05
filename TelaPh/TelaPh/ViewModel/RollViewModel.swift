@@ -24,28 +24,30 @@ class RollViewModel: ObservableObject {
     }
     
     func rolarDado(context: ModelContext) {
-        rollResult = selectedDice.map { die in
+        // 1. Gera os resultados na ordem que o usuário escolheu
+        let resultados = selectedDice.map { die in
             Int.random(in: 1...die.sides)
-        }.sorted()
+        }
         
-        guard !rollResult.isEmpty else { return }
-        
-        let novaRolagem = Rolagem(results: rollResult)
+        // 2. Cria a nova rolagem com esses resultados
+        let novaRolagem = Rolagem(results: resultados)
         
         historico.append(novaRolagem)
         context.insert(novaRolagem)
-        do{
+        do {
             try context.save()
-        } catch{
-            print("Erro ao salvar: \(error)")
+        } catch {
+            print("Erro ao salvar rolagem: \(error)")
         }
         
+        rollResult = resultados
         hasRolled = true
     }
     
     func clearCurrentRoll() {
         selectedDice.removeAll()
         rollResult.removeAll()
+        hasRolled = false
     }
     
     func fetchRoll(context: ModelContext){
