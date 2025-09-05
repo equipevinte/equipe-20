@@ -9,7 +9,9 @@ import SwiftUI
 
 struct EquipSkin: View {
     @Binding var selectedSkin: DiceSkin?
+    @Binding var showEquipSheet: Bool
     @ObservedObject var userVm = UserViewModel.shared
+    
     
     var body: some View {
         VStack {
@@ -18,31 +20,37 @@ struct EquipSkin: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 189, height: 156)
+                
+                //
+                if let user = userVm.user, user.skinAtual.id == skin.id {
+                    Text("Equipada")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 289, height: 56)
+                        .background(Color.verde)
+                        .cornerRadius(6)
+                } else {
+                    Button(action: {
+                        userVm.equiparSkin(skin: skin)
+                        selectedSkin = userVm.user?.skinAtual
+                        showEquipSheet = false
+                    }) {
+                        Text("Equipar")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+                    .frame(width: 289, height: 56)
+                    .background(Color.marromClaro)
+                    .cornerRadius(6)
+                }
             }
-
-            Button(action: {
-                guard let skin = selectedSkin else { return }
-                
-                // Equipa a skin no UserViewModel
-                userVm.equiparSkin(skin: skin)
-                
-                // Atualiza o selectedSkin para refletir visualmente
-                selectedSkin = userVm.user?.skinAtual
-                
-                print("Equipou \(skin.nome)")
-            }) {
-                Text("Equipar")
-                    .font(.title)
-                    .foregroundStyle(.black)
-                    .padding()
-            }
-            .frame(width: 289, height: 56)
-            .background(Color.marromClaro)
-            .cornerRadius(6)
-
         }
         .frame(width: 350, height: 280)
         .background(Color.marromEscuro)
         .cornerRadius(20)
+        
     }
 }
