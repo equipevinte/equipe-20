@@ -25,7 +25,7 @@ struct SkinsDetails: View {
                 .font(.title)
                 .foregroundStyle(colorParaSkinName(skin.nome))
                 .padding()
-
+            
             
             LazyVGrid(columns: colums){
                 ForEach(skin.skinsIndividual, id: \.self){ image in
@@ -44,26 +44,52 @@ struct SkinsDetails: View {
                 
             }
             
-            Button(action: {
-                if let skinToBuy = selectedSkin{
-                    userViewModel.comprarSkin(skin: skinToBuy)
-                } else {
-                    print("erro ao receber skin")
-                }
-            }){
-                Text("Comprar")
-                    .foregroundStyle(.black)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding()
+            if let user = userViewModel.user {
                 
+                if user.skinsCompradas.contains(where: { $0.id == skin.id }) {
+                    // Já comprada
+                    Text("Comprado")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.green)
+                        .padding()
+                        .background(
+                            Color.marromClaro
+                        )
+                        .cornerRadius(10)
+                    
+                } else if user.moedas < skin.preco {
+                    // Dinheiro insuficiente
+                    Text("Moedas insuficientes")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.red)
+                        .padding()
+                        .background(
+                            Color.marromClaro
+                        )
+                        .cornerRadius(10)
+                    
+                } else {
+                    // Pode comprar
+                    Button(action: {
+                        if let skinToBuy = selectedSkin {
+                            userViewModel.comprarSkin(skin: skinToBuy)
+                            selectedSkin = nil // fecha após compra
+                        }
+                    }) {
+                        Text("Comprar")
+                            .foregroundStyle(.black)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding()
+                    }
+                    .padding(.horizontal, 50)
+                    .background(Color.marromClaro)
+                    .cornerRadius(10)
+                    .padding()
+                }
             }
-            .padding(.horizontal, 50)
-            .background(Color.marromClaro)
-            .cornerRadius(10)
-            .padding()
-            
-            
         }
         .frame(width: 350, height: 423)
         .background(Color.marromEscuro)
